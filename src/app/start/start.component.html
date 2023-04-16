@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <table class="table table-bordered table-hover">
+      <tr class="header">
+        <th>Name</th>
+        <th class="text-justify">Total Time in Month</th>
+        <th class="text-justify">Actions</th>
+      </tr>
+      <tr
+        *ngFor="let wh of workingHours"
+        [ngStyle]="{
+          'background-color': wh.Hours < 100 ? '#FFB69E' : 'transparent'
+        }"
+      >
+        <td>{{ wh.EmployeeName }}</td>
+        <td class="text-justify">{{ wh.Hours }} hrs</td>
+        <td class="text-justify text-underline"><a href="Edit()">Edit</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
