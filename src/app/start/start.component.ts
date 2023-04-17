@@ -2,25 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeWorkingHours } from 'src/models/employeeWorkingHours';
 import { Entry } from 'src/models/entry';
 import { EmployeeService } from 'src/services/employee.service';
+import { PieChartComponent } from '../pie-chart/pie-chart.component';
+import { ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css'],
 })
-export class StartComponent implements OnInit {
-  constructor(private employeeService: EmployeeService) {}
+export class StartComponent implements OnInit{
+  //@ViewChild(PieChartComponent)
+  //child: PieChartComponent = new PieChartComponent;
+  constructor(private employeeService: EmployeeService,
+    private myRouter: Router) {}
+   ngOnInit(){
+    this.employeeService.fetchEntriesFromDB().subscribe((data: any) => {
+      this.allEntries = data;
+      this.mapEntries();
+      this.sortEntries();
+      this.employeeService.setWorkingHours(this.workingHours);
+
+    });
+
+  }
+
+
 
   allEntries: Array<Entry> = [];
   workingHours: Array<EmployeeWorkingHours> = [];
 
-  ngOnInit(): void {
-    this.employeeService.getAllEmployees().subscribe((data: any) => {
-      this.allEntries = data;
-      this.mapEntries();
-      this.sortEntries();
-    });
-  }
+
+
+
 
   mapEntries() {
     this.allEntries.forEach((entry) => {

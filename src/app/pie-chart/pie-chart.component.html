@@ -1,0 +1,12 @@
+<div *ngIf="chartData.length > 0">
+  <ngx-charts-pie-chart
+    [results]="chartData"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+  >
+  </ngx-charts-pie-chart>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
